@@ -9,4 +9,4 @@ paper: root.tex references.bib
 
 
 clean:
-	rm icra2016.aux icra2016.bbl icra2016.blg icra2016.log icra2016.out
+	rm -f icra2016.aux icra2016.bbl icra2016.blg icra2016.log icra2016.out
