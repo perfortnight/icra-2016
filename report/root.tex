@@ -80,7 +80,7 @@ Action Selection for Model Disambiguation
 \end{enumerate}
 
 \begin{equation} \label{eq1}
-x = \arg\max_{x' \in S} H\left(K|x'\right) - H\left(K\right) 
+x = \arg\max_{x' \in S} H\left(K|\hat{f}\left(x'\right)\right) - H\left(K\right) 
 \end{equation}
 
 Where $K$ is the kernel and $x'$ is a point in the support of the function to be learned, $f\left(x\right)$
@@ -99,6 +99,7 @@ $$
 \item Restrict range of functions to $\left[0,1\right]$ (wlog)
 \item Objective measure: Reconstruction error over the range finely sampled after the fact.
 \item Initially start with a uniform prior over the models
+\item With and without measurement noise.
 \item Using Gaussian process regression \cite{bishop2006pattern} to represent the model selection 
 \item Control algorithms: Random and uniform sampling, max entropy sampling over 
 \item Stationary functions
@@ -107,8 +108,11 @@ $$
 
 \section{RESULTS}
 
+plots
 \begin{enumerate}
-\item 
+\item Reconstruction error vs number of samples for different strategies for stationary functions
+\item Reconstruction error vs number of samples for different strategies for nonstationary functions
+\item Time to compute action (on average) -- function of number of data points collected
 \end{enumerate}
 
 
