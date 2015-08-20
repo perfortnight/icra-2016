@@ -63,6 +63,10 @@ void GaussianProcess::update_K(bool all)
 	for (unsigned int i = 0; i < xs.size(); ++i) {
 		for (unsigned int j = start_idx; j < xs.size(); ++j) {
 			const double diff = kernel->eval(xs(j),xs(i));
+			std::cout << "diff: " << diff << std::endl;
+			if (diff != diff){
+				exit(-1);
+			}
 			K(i,j) = diff;
 			K(j,i) = diff;
 		}
@@ -82,6 +86,9 @@ double GaussianProcess::objective(VectorXd const &params){
 	const double a = -0.5*ys.transpose()*K.inverse()*ys;
 	const double b = -0.5*std::log(K.determinant());
 	const double c = -0.5*n*std::log(2.*PI);
+
+	std::cout << a << " " << b << " " << c << std::endl;
+	std::cout << "K: " << std::endl << K << std::endl;
 
 	return -(a+b+c);
 }
@@ -109,6 +116,7 @@ void GaussianProcess::optimize()
 		params_orig = params;	
 		for (unsigned int i = 0; i < params.size(); ++i){
 			params(i) = params_orig(i) + dp;
+			std::cout << params.transpose() << std::endl;
 			const double v1 = objective(params);
 			params(i) = params_orig(i) - dp;
 			const double v2 = objective(params);
@@ -193,8 +201,6 @@ std::pair<double,double> GaussianProcess::predict(double x){
 double GaussianProcess::probability(double f_x,double x){
 	std::pair<double,double> p = predict(x);
 	p.first = p.first;
-
-
 
 	return 0.;
 }

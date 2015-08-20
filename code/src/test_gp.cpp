@@ -13,9 +13,11 @@ int main(int argc, char* argv[]){
 // 	std::vector<double> xs{-1.50,-1.00,-0.75,-0.40,-0.25,0.00};	
 // 	std::vector<double> ys{-1.70,-1.15,-0.40,0.20,0.55,0.9};
 
-	std::vector<double> xs{-1.00,-0.75,-0.40,-0.25,0.00,0.2,0.5,0.8,1.0};	
-	std::vector<double> ys{0.305,-0.007,0.783,0.989,0.869,1.361,0.786,0.175,0.184};
+// 	std::vector<double> xs{-1.00,-0.75,-0.40,-0.25,0.00,0.2,0.5,0.8,1.0};	
+// 	std::vector<double> ys{0.305,-0.007,0.783,0.989,0.869,1.361,0.786,0.175,0.184};
 	
+	std::vector<double> xs{-1.00,-0.75,-0.40,-0.25,0.00,0.2,0.8,1.0};	
+	std::vector<double> ys{0.305,-0.007,0.783,0.989,0.869,1.361,0.175,0.184};
 	LinearFunction fn(0.5,0.5,0.5);
 // 	RadialBasisFunction fn(0.5,0.5);
 // 	RadialBasisFunction fn(1.27,1);

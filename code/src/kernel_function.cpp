@@ -1,6 +1,7 @@
 #include "kernel_function.h"
 
 #include <cmath>
+#include <iostream>
 
 const double PI = atan(1.0)*4.;
 
@@ -17,6 +18,7 @@ double LinearFunction::eval(double x, double xp){
 	const double l  = this->params(1);
 	const double sb = this->params(2);
 
+	std::cout << x << "," << xp << "," << sv << "," << l << "," << sb << std::endl;
 	return sb*sb + sv*sv*(x-l)*(xp-l);
 }
 
