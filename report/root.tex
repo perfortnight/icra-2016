@@ -59,6 +59,8 @@ Action Selection for Model Disambiguation
 \section{INTRODUCTION}
 
 \begin{enumerate}
+	\item Maximum Entropy sampling attempts to find the set of informative actionsabout a single distribution \textbf{cite}.  Likewise mutual information sampling attempts to select actions that are most informative about the parameters that an experimenter is trying to identify\textbf{cite}.  
+	\item When there are multiple models to choose from we want to choose actions that are not only informative about that model, but also quickly help the decision maker choose \emph{between} the models.
 \item Learning algorithms need to choose between models that represent the data
 \item While learning it is important to economically spend sampling resources to disambiguate which models
 \end{enumerate}
@@ -76,14 +78,36 @@ Action Selection for Model Disambiguation
 
 \begin{enumerate}
 \item Bayesian Information Criterion
+\item How to avoid overfitting?
 \item Principled approach to actions that are most informative about the underlying model.
 \end{enumerate}
 
-\begin{equation} \label{eq1}
-x = \arg\max_{x' \in S} H\left(K|\hat{f}\left(x'\right)\right) - H\left(K\right) 
+\begin{equation} \label{eq:selection}
+x = \arg\max_{x' \in S} H\left(K|\hat{f}\left(x'\right),x'\right) - H\left(K\right) \\
 \end{equation}
 
+However if we make the assumption that all values of $x$ are equally likely, then we can write the action selection as in Equation \ref{eq:selection-uniform}:
+
+\begin{equation} \label{eq:selection-uniform}
+x = \arg\max_{x' \in S} H\left(K|\hat{f}\left(x'\right)\right) - H\left(K\right)
+\end{equation}
+
+
 Where $K$ is the kernel and $x'$ is a point in the support of the function to be learned, $f\left(x\right)$
+
+\begin{equation}
+	\begin{aligned}
+		H\left(K\right) &= \sum_{i}^{N} P\left(K_{i}\right)\log\left(P\left(K_{i}\right)\right) \\
+	H\left(K|\hat{f}\left(x'\right)\right) &= \sum_{i}^{N} P\left(K_{i}|\hat{f}\left(x'\right)\right)\log\left(P\left(K_{i}|\hat{f}\left(x'\right)\right)\right) \\
+		P\left(K_i|\hat{f}\left(x'\right)\right) &= \frac{P\left(K_i,\hat{f}\left(x'\right)\right)}{P\left(\hat{f}\left(x'\right)\right)} \\
+		&= \frac{P\left(\hat{f}\left(x'\right)|K_i\right)P\left(K_i\right)}{P\left(\hat{f}\left(x'\right)\right)} \\
+		&= \frac{P\left(\hat{f}\left(x'\right)|K_i\right)P\left(K_i\right)}{\sum_{j}^{N}P\left(\hat{f}\left(x'\right)|K_j\right)P(K_j)}
+\end{aligned}
+\end{equation}
+
+If we were merely making observations and not taking actions, it would suffice to simply continually run a bayesian filter on the probability over each model.  However because the algorithm is trying to select actions that make the greatest reduction in uncertainty in the model, it may be different if each model were to be the correct one.  Therefore it is necessary to select an action as if each model were true, and then select from those maximally informative actions which one is likely to be most informative.  
+
+When the true observation is made, the belief distribution over the models can be updated, which can then be used for selecting the next action.  
 
 \subsection{Equations}
 
